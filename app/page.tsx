@@ -11,7 +11,7 @@ function ModelViewerComponent({ src, alt }: { src: string; alt: string }) {
 
   useEffect(() => {
     if (modelRef.current) {
-      const modelViewer = document.createElement('model-viewer') ;
+      const modelViewer = document.createElement('model-viewer') as HTMLModelViewerElement ;
       modelViewer.src = src;
       modelViewer.alt = alt;
       modelViewer.setAttribute('auto-rotate', '');
