@@ -33,7 +33,7 @@ declare module 'three/examples/jsm/controls/OrbitControls' {
     }
   
     export default OrbitControls;
-  },
+  }
 
   // src/@types/three.d.ts
 declare module 'three/examples/jsm/controls/OrbitControls' {
