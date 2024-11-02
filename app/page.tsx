@@ -6,30 +6,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Script from 'next/script';
 
-function ModelViewerComponent({ src, alt }: { src: string; alt: string }) {
+function ModelViewerComponent({ src, alt, iosSrc }: { src: string; alt: string; iosSrc: string }) {
   const modelRef = useRef<HTMLDivElement>(null);
+  const modelViewerRef = useRef<any>(null);
 
   useEffect(() => {
     if (modelRef.current) {
-      const modelViewer = document.createElement('model-viewer') as HTMLModelViewerElement ;
+      const modelViewer = document.createElement('model-viewer') as HTMLModelViewerElement;
       modelViewer.src = src;
       modelViewer.alt = alt;
       modelViewer.setAttribute('auto-rotate', '');
       modelViewer.setAttribute('camera-controls', '');
       modelViewer.setAttribute('ar', '');
       modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+      modelViewer.setAttribute('ios-src', iosSrc);
       modelViewer.setAttribute('shadow-intensity', '1');
       modelViewer.setAttribute('environment-image', 'neutral');
       modelViewer.style.width = '100%';
       modelViewer.style.height = '100%';
 
-      const arButton = document.createElement('button');
-      arButton.slot = 'ar-button';
-      arButton.id = 'ar-button';
-      arButton.textContent = 'View in your space';
-      modelViewer.appendChild(arButton);
-
       modelRef.current.appendChild(modelViewer);
+      modelViewerRef.current = modelViewer;
 
       return () => {
         if (modelRef.current) {
@@ -37,9 +34,19 @@ function ModelViewerComponent({ src, alt }: { src: string; alt: string }) {
         }
       };
     }
-  }, [src, alt]);
+  }, [src, alt, iosSrc]);
 
-  return <div ref={modelRef} style={{ width: '100%', height: '100%' }} />;
+  const activateAR = () => {
+    if (modelViewerRef.current && modelViewerRef.current.canActivateAR) {
+      modelViewerRef.current.activateAR();
+    } else {
+      alert('AR is not supported on this device or browser.');
+    }
+  };
+
+  return (
+    <div ref={modelRef} style={{ width: '100%', height: '100%' }} />
+  );
 }
 
 export default function Home() {
@@ -86,14 +93,23 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <div className="w-full h-48 mb-4">
-                    <ModelViewerComponent src="../../ramen/scene.gltf" alt="3D model of Chicken Caesar Salad" />
+                    <ModelViewerComponent 
+                      src="../../ramen/scene.gltf" 
+                      alt="3D model of Chicken Caesar Salad" 
+                      iosSrc="../../ramen/scene.usdz"
+                    />
                   </div>
                   <p className="text-2xl font-bold text-primary">$12.99</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Link href="https://himanshurawat.8thwall.app/pizza/">
-                    <Button variant="outline">View Details</Button>
-                  </Link>
+                  <Button variant="outline" onClick={() => {
+                    const modelViewer = document.querySelector('model-viewer');
+                    if (modelViewer && (modelViewer as any).canActivateAR) {
+                      (modelViewer as any).activateAR();
+                    } else {
+                      alert('AR is not supported on this device or browser.');
+                    }
+                  }}>View AR</Button>
                   <Button>Add to Cart</Button>
                 </CardFooter>
               </Card>
@@ -105,14 +121,23 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <div className="w-full h-48 mb-4">
-                    <ModelViewerComponent src="../../pizza/pizza.gltf" alt="3D model of Margherita Pizza" />
+                    <ModelViewerComponent 
+                      src="../../pizza/pizza.gltf" 
+                      alt="3D model of Margherita Pizza" 
+                      iosSrc="../../pizza/pizza.usdz"
+                    />
                   </div>
                   <p className="text-2xl font-bold text-primary">$9.99</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Link href="https://himanshurawat.8thwall.app/pizza/">
-                  <Button variant="outline">View in AR</Button>
-                  </Link>
+                  <Button variant="outline" onClick={() => {
+                    const modelViewer = document.querySelector('model-viewer');
+                    if (modelViewer && (modelViewer as any).canActivateAR) {
+                      (modelViewer as any).activateAR();
+                    } else {
+                      alert('AR is not supported on this device or browser.');
+                    }
+                  }}>View AR</Button>
                   <Button>Add to Cart</Button>
                 </CardFooter>
               </Card>
@@ -138,18 +163,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <style jsx>{`
-        #ar-button {
-          background-color: #4285f4;
-          color: white;
-          border-radius: 18px;
-          padding: 10px;
-          position: absolute;
-          bottom: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      `}</style>
     </>
   );
 }
