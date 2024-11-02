@@ -102,14 +102,7 @@ export default function Home() {
                   <p className="text-2xl font-bold text-primary">$12.99</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline" onClick={() => {
-                    const modelViewer = document.querySelector('model-viewer');
-                    if (modelViewer && (modelViewer as any).canActivateAR) {
-                      (modelViewer as any).activateAR();
-                    } else {
-                      alert('AR is not supported on this device or browser.');
-                    }
-                  }}>View AR</Button>
+                  <Button variant="outline" >View Details</Button>
                   <Button>Add to Cart</Button>
                 </CardFooter>
               </Card>
@@ -130,14 +123,7 @@ export default function Home() {
                   <p className="text-2xl font-bold text-primary">$9.99</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline" onClick={() => {
-                    const modelViewer = document.querySelector('model-viewer');
-                    if (modelViewer && (modelViewer as any).canActivateAR) {
-                      (modelViewer as any).activateAR();
-                    } else {
-                      alert('AR is not supported on this device or browser.');
-                    }
-                  }}>View AR</Button>
+                  <Button variant="outline">View Detail</Button>
                   <Button>Add to Cart</Button>
                 </CardFooter>
               </Card>
