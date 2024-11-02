@@ -91,7 +91,7 @@ export default function Home() {
                   <p className="text-2xl font-bold text-primary">$12.99</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Link href="/pizza-model">
+                  <Link href="https://himanshurawat.8thwall.app/pizza/">
                     <Button variant="outline">View Details</Button>
                   </Link>
                   <Button>Add to Cart</Button>
