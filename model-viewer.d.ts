@@ -1,4 +1,14 @@
 // model-viewer.d.ts
+declare global {
+  interface HTMLModelViewerElement extends HTMLElement {
+    src: string;
+    alt: string;
+    setAttribute(name: string, value: string): void;
+  }
+}
+
+export {};
+
 declare module '@google/model-viewer' {
     import * as React from 'react';
 
