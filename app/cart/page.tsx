@@ -30,8 +30,8 @@ export default function Cart() {
       ) : (
         <div className="space-y-4">
           {cartItems.map((item) => (
-            <Card key={item.id} className="flex items-center p-4">
-              <div className="relative w-20 h-20 mr-4">
+            <Card key={item.id} className="flex flex-col sm:flex-row items-center p-4">
+              <div className="relative w-20 h-20 mr-4 mb-4 sm:mb-0">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -52,7 +52,7 @@ export default function Cart() {
               </CardFooter>
             </Card>
           ))}
-          <div className="flex justify-between items-center mt-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
             <span className="text-xl font-bold">Total:</span>
             <span className="text-2xl font-bold text-primary">${total.toFixed(2)}</span>
           </div>
