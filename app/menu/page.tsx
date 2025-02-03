@@ -35,11 +35,11 @@ const menuItems = [
 
 export default function Menu() {
   return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto py-6 sm:px-4 lg:px-8">
       <h1 className="text-3xl font-bold text-primary mb-6">Our Menu</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {menuItems.map((item) => (
-          <Card key={item.id} className="w-full">
+          <Card key={item.id} className="w-full p-4">
             <CardHeader>
               <CardTitle>{item.name}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
@@ -57,8 +57,8 @@ export default function Menu() {
               <p className="text-2xl font-bold text-primary">${item.price.toFixed(2)}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">View Details</Button>
-              <Button>Add to Cart</Button>
+              <Button variant="outline" className="w-full mb-2">View Details</Button>
+              <Button className="w-full">Add to Cart</Button>
             </CardFooter>
           </Card>
         ))}
